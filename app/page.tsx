@@ -1,193 +1,150 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
-import { Star, Leaf, Globe, Shield } from "lucide-react"
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { Map, Compass, Star, Users, Sparkles, TrendingUp } from "lucide-react"
+import { TopGuidesSection } from "@/components/top-guides-section"
+import { PopularDestinationsSection } from "@/components/popular-destinations-section"
+import { Header } from "@/components/header"
+import { Footer } from "@/components/footer"
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen flex flex-col">
+      <Header />
+
       {/* Hero Section */}
-      <header className="relative overflow-hidden bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5">
-        <div className="container mx-auto px-4 py-20 md:py-32">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl md:text-7xl font-bold text-foreground mb-6 tracking-tight text-balance">
-              Descubre experiencias auténticas con guías locales
-            </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground mb-8 text-balance">
-              Conectamos viajeros con guías certificados y lugares sostenibles para crear recuerdos inolvidables
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg" className="text-lg px-8">
-                <Link href="/register/tourist">Registrarme como Turista</Link>
-              </Button>
-              <Button asChild variant="outline" size="lg" className="text-lg px-8 bg-transparent">
-                <Link href="/register/guide">Registrarme como Guía</Link>
-              </Button>
+      <section className="relative bg-gradient-to-br from-primary/10 via-background to-accent/10 pt-20 pb-32 px-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="space-y-8">
+              <Badge className="bg-accent text-accent-foreground w-fit">
+                <Sparkles className="w-3 h-3 mr-1" />
+                Conecta con guías locales auténticos
+              </Badge>
+              <h1 className="text-5xl lg:text-7xl font-bold text-balance leading-tight">
+                Descubre el Mundo con
+                <span className="text-primary"> Guías Locales</span>
+              </h1>
+              <p className="text-xl text-muted-foreground text-pretty leading-relaxed">
+                Experiencias únicas, tours personalizados y recomendaciones exclusivas de quienes mejor conocen cada
+                destino.
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <Button size="lg" className="text-lg px-8">
+                  <Compass className="w-5 h-5 mr-2" />
+                  Explorar Tours
+                </Button>
+                <Button size="lg" variant="outline" className="text-lg px-8 bg-transparent" asChild>
+                  <Link href="/guia/registro">
+                    <Users className="w-5 h-5 mr-2" />
+                    Soy Guía
+                  </Link>
+                </Button>
+              </div>
+
+              {/* Stats */}
+              <div className="grid grid-cols-3 gap-6 pt-8">
+                <div>
+                  <div className="text-3xl font-bold text-primary">500+</div>
+                  <div className="text-sm text-muted-foreground">Guías Verificados</div>
+                </div>
+                <div>
+                  <div className="text-3xl font-bold text-primary">1200+</div>
+                  <div className="text-sm text-muted-foreground">Tours Únicos</div>
+                </div>
+                <div>
+                  <div className="text-3xl font-bold text-primary">50k+</div>
+                  <div className="text-sm text-muted-foreground">Turistas Felices</div>
+                </div>
+              </div>
+            </div>
+
+            <div className="relative h-[500px] lg:h-[600px]">
+              <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-accent/20 rounded-3xl" />
+              <img
+                src="/tourist-exploring-local-market-with-guide.jpg"
+                alt="Turista explorando con guía local"
+                className="absolute inset-0 w-full h-full object-cover rounded-3xl shadow-2xl"
+              />
             </div>
           </div>
         </div>
-
-        {/* Decorative Elements */}
-        <div className="absolute top-20 right-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-10 left-10 w-96 h-96 bg-secondary/10 rounded-full blur-3xl" />
-      </header>
+      </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-card">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-16 text-foreground">¿Por qué elegir TuriLink?</h2>
+      <section className="py-20 px-4 bg-muted/30">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold mb-4">¿Por qué elegir TuriLink?</h2>
+            <p className="text-xl text-muted-foreground">La mejor forma de conectar con experiencias auténticas</p>
+          </div>
+
           <div className="grid md:grid-cols-3 gap-8">
-            <Card className="p-8 hover:shadow-lg transition-shadow">
-              <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-4">
-                <Shield className="w-7 h-7 text-primary" />
-              </div>
-              <h3 className="text-2xl font-semibold mb-3 text-card-foreground">Guías Certificados</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                Todos nuestros guías están verificados con documentación oficial para garantizar tu seguridad y
-                confianza
-              </p>
+            <Card className="border-2 hover:border-primary transition-colors">
+              <CardHeader>
+                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
+                  <Map className="w-6 h-6 text-primary" />
+                </div>
+                <CardTitle>Experiencias Auténticas</CardTitle>
+                <CardDescription className="text-base">
+                  Descubre lugares ocultos y vive como un local con guías que conocen cada rincón de su ciudad.
+                </CardDescription>
+              </CardHeader>
             </Card>
 
-            <Card className="p-8 hover:shadow-lg transition-shadow">
-              <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-4">
-                <Leaf className="w-7 h-7 text-primary" />
-              </div>
-              <h3 className="text-2xl font-semibold mb-3 text-card-foreground">Turismo Sostenible</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                Promovemos experiencias que respetan el medio ambiente y apoyan a las comunidades locales
-              </p>
+            <Card className="border-2 hover:border-primary transition-colors">
+              <CardHeader>
+                <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-4">
+                  <Star className="w-6 h-6 text-accent" />
+                </div>
+                <CardTitle>Guías Verificados</CardTitle>
+                <CardDescription className="text-base">
+                  Todos nuestros guías están verificados y cuentan con calificaciones reales de viajeros anteriores.
+                </CardDescription>
+              </CardHeader>
             </Card>
 
-            <Card className="p-8 hover:shadow-lg transition-shadow">
-              <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-4">
-                <Star className="w-7 h-7 text-primary" />
-              </div>
-              <h3 className="text-2xl font-semibold mb-3 text-card-foreground">Experiencias Auténticas</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                Descubre lugares únicos y vive momentos genuinos con expertos locales apasionados
-              </p>
+            <Card className="border-2 hover:border-primary transition-colors">
+              <CardHeader>
+                <div className="w-12 h-12 rounded-xl bg-secondary/10 flex items-center justify-center mb-4">
+                  <Sparkles className="w-6 h-6 text-secondary" />
+                </div>
+                <CardTitle>IA Inteligente</CardTitle>
+                <CardDescription className="text-base">
+                  Obtén rutas personalizadas con IA que conecta los mejores lugares y guías según tus preferencias.
+                </CardDescription>
+              </CardHeader>
             </Card>
           </div>
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="py-20 bg-primary text-primary-foreground">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-4 gap-8 text-center">
-            <div>
-              <div className="text-5xl font-bold mb-2">500+</div>
-              <div className="text-lg opacity-90">Guías Certificados</div>
-            </div>
-            <div>
-              <div className="text-5xl font-bold mb-2">10K+</div>
-              <div className="text-lg opacity-90">Turistas Satisfechos</div>
-            </div>
-            <div>
-              <div className="text-5xl font-bold mb-2">300+</div>
-              <div className="text-lg opacity-90">Destinos Únicos</div>
-            </div>
-            <div>
-              <div className="text-5xl font-bold mb-2">4.9</div>
-              <div className="text-lg opacity-90">Calificación Promedio</div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Top Guides */}
+      <TopGuidesSection />
+
+      {/* Popular Destinations */}
+      <PopularDestinationsSection />
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-secondary/20 to-accent/20">
-        <div className="container mx-auto px-4 text-center">
-          <Globe className="w-16 h-16 text-primary mx-auto mb-6" />
-          <h2 className="text-4xl font-bold mb-4 text-foreground text-balance">Comienza tu aventura hoy</h2>
-          <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto text-balance">
-            Únete a miles de viajeros que ya descubrieron experiencias inolvidables
+      <section className="py-20 px-4 bg-gradient-to-r from-primary to-accent">
+        <div className="max-w-4xl mx-auto text-center space-y-6">
+          <h2 className="text-4xl font-bold text-primary-foreground text-balance">
+            ¿Eres guía local? Únete a TuriLink
+          </h2>
+          <p className="text-xl text-primary-foreground/90 text-pretty">
+            Comparte tu pasión, conecta con viajeros de todo el mundo y crea tu negocio de turismo.
           </p>
-          <Button asChild size="lg" className="text-lg px-10">
-            <Link href="/dashboard">Explorar Ahora</Link>
+          <Button size="lg" variant="secondary" className="text-lg px-8" asChild>
+            <Link href="/guia/registro">
+              <TrendingUp className="w-5 h-5 mr-2" />
+              Comenzar como Guía
+            </Link>
           </Button>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-card border-t border-border py-12">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-4 gap-8">
-            <div>
-              <h3 className="font-bold text-lg mb-4 text-card-foreground">TuriLink</h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">
-                Conectando turistas con experiencias auténticas desde 2024
-              </p>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4 text-card-foreground">Explora</h4>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <Link href="/guides" className="text-muted-foreground hover:text-primary transition-colors">
-                    Guías
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/locals" className="text-muted-foreground hover:text-primary transition-colors">
-                    Lugares
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/recommendations"
-                    className="text-muted-foreground hover:text-primary transition-colors"
-                  >
-                    Recomendaciones
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4 text-card-foreground">Conviértete en Guía</h4>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <Link href="/register/guide" className="text-muted-foreground hover:text-primary transition-colors">
-                    Registrarse
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                    Requisitos
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                    Beneficios
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-4 text-card-foreground">Soporte</h4>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                    Centro de Ayuda
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                    Contacto
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                    Términos
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="mt-12 pt-8 border-t border-border text-center text-sm text-muted-foreground">
-            © 2025 TuriLink. Todos los derechos reservados.
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }
