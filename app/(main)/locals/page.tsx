@@ -1,10 +1,13 @@
+"use client"
+
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import Link from "next/link"
-import { mockLocals } from "@/lib/mock-data"
+
 import { Star, Leaf, Search, MapPin, Utensils, Trees, Landmark, Mountain } from "lucide-react"
+import { useLocals } from "@/app/providers"
 
 const typeIcons = {
   restaurant: Utensils,
@@ -14,6 +17,8 @@ const typeIcons = {
 }
 
 export default function LocalsPage() {
+  const { locals } = useLocals()
+
   return (
     <div className="p-6 lg:p-10 space-y-8">
       {/* Header */}
@@ -41,7 +46,7 @@ export default function LocalsPage() {
 
       {/* Locals Grid */}
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {mockLocals.map((local) => {
+        {locals.map((local) => {
           const IconComponent = typeIcons[local.type]
           return (
             <Card key={local.id} className="overflow-hidden hover:shadow-lg transition-shadow">

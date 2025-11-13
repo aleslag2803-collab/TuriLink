@@ -7,6 +7,8 @@ import { notFound } from "next/navigation"
 import Link from "next/link"
 import { Star, Phone, Mail, Globe, Car, Bus, Shield, Leaf, Users, Calendar, MessageCircle } from "lucide-react"
 
+
+
 export default function GuideDetailPage({ params }: { params: { id: string } }) {
   const guide = mockGuides.find((g) => g.id === params.id)
 

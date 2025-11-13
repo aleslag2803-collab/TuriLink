@@ -1,6 +1,10 @@
 import type React from "react"
 import { Sidebar } from "@/components/sidebar"
 import { MobileNav } from "@/components/mobile-nav"
+import { LocalsProvider } from "../providers"
+
+
+
 
 export default function DashboardLayout({
   children,
