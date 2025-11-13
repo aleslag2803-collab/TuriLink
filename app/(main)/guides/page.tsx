@@ -11,7 +11,7 @@ export default function GuidesPage() {
     <div className="p-6 lg:p-10 space-y-8">
       {/* Header */}
       <div>
-        <h1 className="text-4xl font-bold text-foreground mb-2">Explorar Guías Certificados</h1>
+        <h1 className="text-4xl font-bold text-foreground mb-2">Explorar Guías</h1>
         <p className="text-lg text-muted-foreground">Encuentra el guía perfecto para tu próxima aventura</p>
       </div>
 
