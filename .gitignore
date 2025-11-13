@@ -1,1 +1,35 @@
-node_modules
+# 🚫 Dependencias
+node_modules/
+.pnpm-store/
+.yarn/
+.npm/
+
+# 🏗️ Builds y outputs
+.next/
+dist/
+out/
+build/
+
+# ⚙️ Configuración del entorno
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+
+# 💾 Logs y caches
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.cache/
+.tmp/
+.vscode/
+
+# ⚡ Sistema
+.DS_Store
+Thumbs.db
+
+# 🧪 Testing
+coverage/
