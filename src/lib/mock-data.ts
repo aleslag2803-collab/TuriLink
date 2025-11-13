@@ -1,3 +1,5 @@
+// Datos simulados para la aplicación
+
 export interface Guide {
   id: string
   name: string

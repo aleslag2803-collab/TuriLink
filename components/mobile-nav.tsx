@@ -11,16 +11,16 @@ import { MapPin, Users, CreditCard, Settings, UserPlus, Building2, Sparkles, Lay
 
 const navigation = [
   { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-  { name: "Explorar Guías", href: "/dashboard/guides", icon: Users },
-  { name: "Lugares", href: "/dashboard/locals", icon: MapPin },
-  { name: "Recomendaciones", href: "/dashboard/recommendations", icon: Sparkles },
-  { name: "Pagos", href: "/dashboard/payments", icon: CreditCard },
-  { name: "Mi Perfil", href: "/dashboard/profile", icon: Settings },
+  { name: "Explorar Guías", href: "/guides", icon: Users },
+  { name: "Lugares", href: "/locals", icon: MapPin },
+  { name: "Recomendaciones", href: "/recommendations", icon: Sparkles },
+  { name: "Pagos", href: "/payments", icon: CreditCard },
+  { name: "Mi Perfil", href: "/profile", icon: Settings },
 ]
 
 const guideNavigation = [
-  { name: "Registro de Guía", href: "/dashboard/guides/register", icon: UserPlus },
-  { name: "Agregar Lugar", href: "/dashboard/locals/new", icon: Building2 },
+  { name: "Perfil de Guía", href: "/guide-profile", icon: UserPlus },
+  { name: "Agregar Lugar", href: "/locals/new", icon: Building2 },
 ]
 
 export function MobileNav() {

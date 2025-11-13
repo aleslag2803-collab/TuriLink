@@ -18,10 +18,10 @@ export default function HomePage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="text-lg px-8">
-                <Link href="/dashboard">Explorar Guías</Link>
+                <Link href="/register/tourist">Registrarme como Turista</Link>
               </Button>
               <Button asChild variant="outline" size="lg" className="text-lg px-8 bg-transparent">
-                <Link href="/dashboard/guides/register">Ser Guía</Link>
+                <Link href="/register/guide">Registrarme como Guía</Link>
               </Button>
             </div>
           </div>
@@ -123,18 +123,18 @@ export default function HomePage() {
               <h4 className="font-semibold mb-4 text-card-foreground">Explora</h4>
               <ul className="space-y-2 text-sm">
                 <li>
-                  <Link href="/dashboard/guides" className="text-muted-foreground hover:text-primary transition-colors">
+                  <Link href="/guides" className="text-muted-foreground hover:text-primary transition-colors">
                     Guías
                   </Link>
                 </li>
                 <li>
-                  <Link href="/dashboard/locals" className="text-muted-foreground hover:text-primary transition-colors">
+                  <Link href="/locals" className="text-muted-foreground hover:text-primary transition-colors">
                     Lugares
                   </Link>
                 </li>
                 <li>
                   <Link
-                    href="/dashboard/recommendations"
+                    href="/recommendations"
                     className="text-muted-foreground hover:text-primary transition-colors"
                   >
                     Recomendaciones
@@ -146,10 +146,7 @@ export default function HomePage() {
               <h4 className="font-semibold mb-4 text-card-foreground">Conviértete en Guía</h4>
               <ul className="space-y-2 text-sm">
                 <li>
-                  <Link
-                    href="/dashboard/guides/register"
-                    className="text-muted-foreground hover:text-primary transition-colors"
-                  >
+                  <Link href="/register/guide" className="text-muted-foreground hover:text-primary transition-colors">
                     Registrarse
                   </Link>
                 </li>

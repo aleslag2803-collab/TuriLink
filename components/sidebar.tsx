@@ -18,16 +18,16 @@ import {
 
 const navigation = [
   { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-  { name: "Explorar Guías", href: "/dashboard/guides", icon: Users },
-  { name: "Lugares", href: "/dashboard/locals", icon: MapPin },
-  { name: "Recomendaciones", href: "/dashboard/recommendations", icon: Sparkles },
-  { name: "Pagos", href: "/dashboard/payments", icon: CreditCard },
-  { name: "Mi Perfil", href: "/dashboard/profile", icon: Settings },
+  { name: "Explorar Guías", href: "/guides", icon: Users },
+  { name: "Lugares", href: "/locals", icon: MapPin },
+  { name: "Recomendaciones", href: "/recommendations", icon: Sparkles },
+  { name: "Pagos", href: "/payments", icon: CreditCard },
+  { name: "Mi Perfil", href: "/profile", icon: Settings },
 ]
 
 const guideNavigation = [
-  { name: "Registro de Guía", href: "/dashboard/guides/register", icon: UserPlus },
-  { name: "Agregar Lugar", href: "/dashboard/locals/new", icon: Building2 },
+  { name: "Perfil de Guía", href: "/guide-profile", icon: UserPlus },
+  { name: "Agregar Lugar", href: "/locals/new", icon: Building2 },
 ]
 
 export function Sidebar() {
@@ -109,7 +109,7 @@ export function Sidebar() {
                 Únete a nuestra red de guías certificados
               </p>
               <Link
-                href="/dashboard/guides/register"
+                href="/register/guide"
                 className="inline-flex items-center justify-center w-full rounded-lg bg-primary px-3 py-2 text-xs font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
               >
                 Registrarse Ahora
