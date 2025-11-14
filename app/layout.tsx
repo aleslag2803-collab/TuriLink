@@ -12,7 +12,7 @@ const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "TuriLink - Conecta con Guías Locales Auténticos",
+  title: "TuriLink - La forma más simple de conocer la ciudad.",
   description:
     "Descubre experiencias únicas con guías locales. Tours personalizados, recomendaciones exclusivas y aventuras inolvidables.",
   generator: "v0.app",

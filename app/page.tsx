@@ -20,7 +20,7 @@ export default function HomePage() {
             <div className="space-y-8">
               <Badge className="bg-accent text-accent-foreground w-fit">
                 <Sparkles className="w-3 h-3 mr-1" />
-                Conecta con guías locales auténticos
+                La forma más simple de conocer la ciudad.
               </Badge>
               <h1 className="text-5xl lg:text-7xl font-bold text-balance leading-tight">
                 Descubre el Mundo con
