@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import { Plus, Clock, Users, MapPin, Pencil } from "lucide-react"
+import { Plus, Clock, Users, MapPin } from "lucide-react"
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import {
@@ -47,11 +47,29 @@ export type Tour = {
   images?: string[]
 }
 
+// 🔹 Tipo para solicitudes de tours personalizados
+type CustomTourRequest = {
+  id: string
+  tourTitle: string
+  touristName: string
+  email: string
+  phone?: string
+  date: string
+  time: string
+  people: number
+  area: string
+  meetingPoint: string
+  notes?: string
+  estimatedPricePerPerson: number
+  estimatedTotal: number
+  status: "pending" | "accepted" | "rejected"
+}
+
 // tours iniciales (mock)
 const DEFAULT_TOURS: Tour[] = [
   {
     id: "1",
-    title: "Tour Histórico Centro CDMX",
+    title: "Tour por el Centro de Cancún",
     type: "Grupal",
     price: 350,
     duration: "3 horas",
@@ -60,20 +78,19 @@ const DEFAULT_TOURS: Tour[] = [
     status: "active",
     rating: 4.9,
     reviews: 45,
-    meetingPoint: "Zócalo, frente a la Catedral",
-    description:
-      "Recorrido guiado por el corazón histórico de la Ciudad de México con paradas en los principales monumentos.",
+    meetingPoint: "Crucero, frente a la plaza",
+    description: "Recorrido guiado por el corazón del centro de Cancún",
     includes: "Guía certificado, agua embotellada, entradas a museos seleccionados",
     packageType: "Clásico",
     paidBookings: 6,
     pendingBookings: 1,
     acceptedUnpaidBookings: 1,
-    relatedPlaces: ["Catedral Metropolitana", "Palacio Nacional", "Templo Mayor"],
+    relatedPlaces: ["Parque de las palapas", "Palacio Municipal", "Centro"],
     images: ["/miradorzh.jpg", "/hardrock.jpeg", "/coco-bongo-cancun.jpg"],
   },
   {
     id: "2",
-    title: "Gastronomía de Coyoacán",
+    title: "Gastronomía de Cancún",
     type: "Individual",
     price: 750,
     duration: "4 horas",
@@ -82,19 +99,19 @@ const DEFAULT_TOURS: Tour[] = [
     status: "active",
     rating: 5.0,
     reviews: 32,
-    meetingPoint: "Jardín Centenario, junto a la fuente de los coyotes",
-    description: "Tour gastronómico por los mejores mercados y fondas tradicionales de Coyoacán.",
+    meetingPoint: "Mercado 28",
+    description: "Tour gastronómico por los mejores mercados y fondas tradicionales de Cancún.",
     includes: "Degustaciones, guía gastronómico, bebida tradicional",
     packageType: "Premium",
     paidBookings: 4,
     pendingBookings: 1,
     acceptedUnpaidBookings: 0,
-    relatedPlaces: ["Mercado de Coyoacán", "Centro de Coyoacán"],
+    relatedPlaces: ["Mercado 28", "Zona centro"],
     images: ["/miradorzh.jpg", "/hardrock.jpeg", "/coco-bongo-cancun.jpg"],
   },
   {
     id: "3",
-    title: "Arte y Murales de CDMX",
+    title: "Arte y Murales de Cancún",
     type: "Grupal",
     price: 400,
     duration: "3.5 horas",
@@ -103,19 +120,19 @@ const DEFAULT_TOURS: Tour[] = [
     status: "active",
     rating: 4.8,
     reviews: 67,
-    meetingPoint: "Museo Mural Diego Rivera",
+    meetingPoint: "Zona centro",
     description: "Descubre los murales más emblemáticos de la ciudad con contexto histórico y artístico.",
-    includes: "Entradas, guía especializado en arte",
+    includes: "Entradas, guía especializado en arte urbano",
     packageType: "Clásico",
     paidBookings: 9,
     pendingBookings: 2,
     acceptedUnpaidBookings: 1,
-    relatedPlaces: ["Palacio de Bellas Artes", "Centro Histórico"],
+    relatedPlaces: ["Centro", "Zona hotelera (murales)"],
     images: ["/miradorzh.jpg", "/hardrock.jpeg", "/coco-bongo-cancun.jpg"],
   },
   {
     id: "4",
-    title: "Xochimilco y Trajineras",
+    title: "Tour por los parques principales",
     type: "Privado",
     price: 1200,
     duration: "5 horas",
@@ -124,17 +141,71 @@ const DEFAULT_TOURS: Tour[] = [
     status: "active",
     rating: 4.9,
     reviews: 28,
-    meetingPoint: "Embarcadero Nuevo Nativitas",
-    description: "Experiencia privada en trajinera con música, comida y visita a invernaderos.",
-    includes: "Renta de trajinera, guía, degustación de comida típica",
+    meetingPoint: "Pick up en hotel",
+    description: "Recorrido por los parques y áreas verdes más importantes de Cancún.",
+    includes: "Transporte, guía, hidratación ligera",
     packageType: "VIP",
     paidBookings: 2,
     pendingBookings: 1,
     acceptedUnpaidBookings: 0,
-    relatedPlaces: ["Xochimilco", "Viveros locales"],
+    relatedPlaces: ["Parques urbanos", "Malecón Tajamar"],
     images: ["/miradorzh.jpg", "/hardrock.jpeg", "/coco-bongo-cancun.jpg"],
   },
 ]
+
+// 🔹 Solicitudes de tours personalizados de ejemplo
+const DEFAULT_CUSTOM_REQUESTS: CustomTourRequest[] = [
+  {
+    id: "req-1",
+    tourTitle: "Tour personalizado Zona Hotelera (Mirador, Hard Rock y Coco Bongo)",
+    touristName: "Ana Rodríguez",
+    email: "ana@example.com",
+    phone: "+52 55 1234 5678",
+    date: "2025-02-18",
+    time: "20:00",
+    people: 4,
+    area: "Zona Hotelera",
+    meetingPoint: "Lobby del hotel en km 10",
+    notes: "Le gustaría hacer más tiempo en el mirador para fotos y llegar a Coco Bongo antes del show principal.",
+    estimatedPricePerPerson: 850,
+    estimatedTotal: 3400,
+    status: "pending",
+  },
+  {
+    id: "req-2",
+    tourTitle: "Atardecer en Playa Delfines con cena ligera",
+    touristName: "Carlos Gómez",
+    email: "carlos@example.com",
+    phone: "+52 81 9876 5432",
+    date: "2025-02-20",
+    time: "17:30",
+    people: 2,
+    area: "Playa Delfines / Zona Hotelera",
+    meetingPoint: "Parada de autobús frente a Playa Delfines",
+    notes: "Solicita opción vegetariana en la cena.",
+    estimatedPricePerPerson: 650,
+    estimatedTotal: 1300,
+    status: "accepted",
+  },
+  // 🔹 Nueva solicitud pendiente
+  {
+    id: "req-3",
+    tourTitle: "Experiencia nocturna en Cancún centro y Zona Hotelera",
+    touristName: "María López",
+    email: "maria@example.com",
+    phone: "+52 33 7654 3210",
+    date: "2025-02-22",
+    time: "19:00",
+    people: 3,
+    area: "Centro y Zona Hotelera",
+    meetingPoint: "Parque de las Palapas",
+    notes: "Quiere incluir una parada para cenar tacos locales antes de ir a la zona hotelera.",
+    estimatedPricePerPerson: 700,
+    estimatedTotal: 2100,
+    status: "pending",
+  },    
+]
+
 
 const INITIAL_FORM = {
   nombre: "",
@@ -167,6 +238,8 @@ export default function ToursPage() {
     }
     return DEFAULT_TOURS
   })
+
+  const [customRequests, setCustomRequests] = useState<CustomTourRequest[]>(DEFAULT_CUSTOM_REQUESTS)
 
   const [form, setForm] = useState(INITIAL_FORM)
 
@@ -236,7 +309,7 @@ export default function ToursPage() {
         pendingBookings: 0,
         acceptedUnpaidBookings: 0,
         relatedPlaces: [],
-        images: ["/miradorzh.jpg", "/hardrock.jpeg", "/coco-bongo-cancun.jpg"], // si quieres que los nuevos ya traigan estas por defecto
+        images: ["/miradorzh.jpg", "/hardrock.jpeg", "/coco-bongo-cancun.jpg"],
       }
       setTours((prev) => [newTour, ...prev])
     }
@@ -260,6 +333,21 @@ export default function ToursPage() {
     setIsOpen(true)
   }
 
+  const handleAcceptRequest = (id: string) => {
+    setCustomRequests((prev) =>
+      prev.map((req) => (req.id === id ? { ...req, status: "accepted" } : req)),
+    )
+  }
+
+  const handleRejectRequest = (id: string) => {
+    setCustomRequests((prev) =>
+      prev.map((req) => (req.id === id ? { ...req, status: "rejected" } : req)),
+    )
+  }
+
+  const pendingRequests = customRequests.filter((r) => r.status === "pending")
+  const acceptedRequests = customRequests.filter((r) => r.status === "accepted")
+
   const isEditing = Boolean(editingId)
 
   return (
@@ -267,7 +355,7 @@ export default function ToursPage() {
       {/* Encabezado */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold mb-2">Mis Tours</h1>
+          <h1 className="text-3xl font-bold mb-2">Tours</h1>
           <p className="text-muted-foreground">Gestiona y crea tus tours turísticos</p>
         </div>
 
@@ -300,7 +388,7 @@ export default function ToursPage() {
                 <Label htmlFor="nombre">Nombre del Tour</Label>
                 <Input
                   id="nombre"
-                  placeholder="Ej: Tour Histórico por el Centro"
+                  placeholder="Ej: Tour Zona Hotelera"
                   value={form.nombre}
                   onChange={handleChange("nombre")}
                 />
@@ -363,7 +451,7 @@ export default function ToursPage() {
                 <Label htmlFor="ubicacion">Punto de Encuentro</Label>
                 <Input
                   id="ubicacion"
-                  placeholder="Ej: Zócalo, frente a la Catedral"
+                  placeholder="Ej: Lobby del hotel"
                   value={form.ubicacion}
                   onChange={handleChange("ubicacion")}
                 />
@@ -385,7 +473,7 @@ export default function ToursPage() {
                 <Textarea
                   id="incluye"
                   rows={3}
-                  placeholder="Ej: Guía certificado, agua embotellada, entradas..."
+                  placeholder="Ej: Guía certificado, transportes, entradas..."
                   value={form.incluye}
                   onChange={handleChange("incluye")}
                 />
@@ -409,7 +497,207 @@ export default function ToursPage() {
         </Dialog>
       </div>
 
-      {/* Lista de tours */}
+     <div>
+          <h1 className="text-xl font-bold mb-2">Tours Personalizados</h1>
+          <p className="text-muted-foreground">Tours creados</p>
+        </div>
+      {/* 🔹 Card: Solicitudes de tours personalizados */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Solicitudes de tours personalizados</CardTitle>
+        </CardHeader>
+        <CardContent>
+          {pendingRequests.length === 0 ? (
+            <p className="text-sm text-muted-foreground">
+              No tienes solicitudes de tours personalizados pendientes en este momento.
+            </p>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b">
+                    <th className="text-left py-3 px-4 font-semibold">Turista</th>
+                    <th className="text-left py-3 px-4 font-semibold">Tour</th>
+                    <th className="text-left py-3 px-4 font-semibold">Fecha / Hora</th>
+                    <th className="text-right py-3 px-4 font-semibold">Personas</th>
+                    <th className="text-left py-3 px-4 font-semibold">Zona</th>
+                    <th className="text-right py-3 px-4 font-semibold">Total Estimado</th>
+                    <th className="text-center py-3 px-4 font-semibold">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {pendingRequests.map((req) => (
+                    <tr
+                      key={req.id}
+                      className="border-b last:border-0 hover:bg-muted/40 transition-colors"
+                    >
+                      <td className="py-3 px-4">
+                        <div className="font-medium">{req.touristName}</div>
+                        <div className="text-xs text-muted-foreground">{req.email}</div>
+                      </td>
+                      <td className="py-3 px-4">
+                        <div className="font-medium line-clamp-2">{req.tourTitle}</div>
+                      </td>
+                      <td className="py-3 px-4">
+                        <div>{req.date}</div>
+                        <div className="text-xs text-muted-foreground">{req.time} hrs</div>
+                      </td>
+                      <td className="py-3 px-4 text-right">{req.people}</td>
+                      <td className="py-3 px-4">{req.area}</td>
+                      <td className="py-3 px-4 text-right font-semibold">
+                        ${req.estimatedTotal.toLocaleString()}
+                      </td>
+                      <td className="py-3 px-4">
+                        <div className="flex flex-col gap-2 items-center justify-center md:flex-row md:justify-end">
+                          <Dialog>
+                            <DialogTrigger asChild>
+                              <Button variant="outline" size="sm">
+                                Ver detalle
+                              </Button>
+                            </DialogTrigger>
+                            <DialogContent className="max-w-md">
+                              <DialogHeader>
+                                <DialogTitle>Detalle de la solicitud</DialogTitle>
+                                <DialogDescription>
+                                  Tour personalizado solicitado por {req.touristName}
+                                </DialogDescription>
+                              </DialogHeader>
+                              <div className="space-y-2 text-sm mt-2">
+                                <p>
+                                  <span className="font-semibold">Tour:</span> {req.tourTitle}
+                                </p>
+                                <p>
+                                  <span className="font-semibold">Fecha y hora:</span> {req.date} -{" "}
+                                  {req.time} hrs
+                                </p>
+                                <p>
+                                  <span className="font-semibold">Personas:</span> {req.people}
+                                </p>
+                                <p>
+                                  <span className="font-semibold">Zona:</span> {req.area}
+                                </p>
+                                <p>
+                                  <span className="font-semibold">Punto de encuentro:</span>{" "}
+                                  {req.meetingPoint}
+                                </p>
+                                {req.phone && (
+                                  <p>
+                                    <span className="font-semibold">Teléfono:</span> {req.phone}
+                                  </p>
+                                )}
+                                {req.notes && (
+                                  <p>
+                                    <span className="font-semibold">Notas del turista:</span>{" "}
+                                    {req.notes}
+                                  </p>
+                                )}
+                                <p className="pt-2">
+                                  <span className="font-semibold">
+                                    Precio estimado por persona:
+                                  </span>{" "}
+                                  ${req.estimatedPricePerPerson.toLocaleString()} MXN
+                                </p>
+                                <p>
+                                  <span className="font-semibold">Total estimado:</span>{" "}
+                                  ${req.estimatedTotal.toLocaleString()} MXN
+                                </p>
+                              </div>
+                              <DialogFooter className="mt-4 flex justify-end gap-2">
+                                <Button
+                                  type="button"
+                                  variant="outline"
+                                  onClick={() => handleRejectRequest(req.id)}
+                                >
+                                  No aceptar
+                                </Button>
+                                <Button
+                                  type="button"
+                                  onClick={() => handleAcceptRequest(req.id)}
+                                >
+                                  Aceptar tour
+                                </Button>
+                              </DialogFooter>
+                            </DialogContent>
+                          </Dialog>
+
+                          <Button
+                            size="sm"
+                            className="bg-green-eco text-primary-foreground"
+                            onClick={() => handleAcceptRequest(req.id)}
+                          >
+                            Aceptar
+                          </Button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
+      {/* 🔹 Lista de tours personalizados aceptados */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Tours personalizados aceptados</CardTitle>
+        </CardHeader>
+        <CardContent>
+          {acceptedRequests.length === 0 ? (
+            <p className="text-sm text-muted-foreground">
+              Aún no has aceptado ningún tour personalizado.
+            </p>
+          ) : (
+            <div className="space-y-3">
+              {acceptedRequests.map((req) => (
+                <div
+                  key={req.id}
+                  className="flex flex-col md:flex-row md:items-center md:justify-between p-3 border rounded-lg"
+                >
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-2">
+                      <span className="font-semibold">{req.tourTitle}</span>
+                      <Badge variant="secondary">Aceptado</Badge>
+                    </div>
+                    <p className="text-sm text-muted-foreground">
+                      {req.date} · {req.time} hrs · {req.people} personas · {req.area}
+                    </p>
+                    <p className="text-sm">
+                      Total:{" "}
+                      <span className="font-semibold">
+                        ${req.estimatedTotal.toLocaleString()} MXN
+                      </span>
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      Turista: {req.touristName} · {req.email}
+                    </p>
+                  </div>
+                  <div className="mt-2 md:mt-0 flex justify-start md:justify-end">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() =>
+                        router.push(
+                          `/guia/tours?focus=custom&requestId=${encodeURIComponent(req.id)}`,
+                        )
+                      }
+                    >
+                      Ver en agenda
+                    </Button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
+      {/* Lista de tours normales */}
+              <div>
+          <h1 className="text-xl font-bold mb-2">Mis tours</h1>
+          <p className="text-muted-foreground">Tours creados</p>
+        </div>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {tours.map((tour) => (
           <Card key={tour.id} className="hover:shadow-lg transition-shadow">

@@ -11,7 +11,7 @@ export default function GuideDashboard() {
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-bold mb-2">Dashboard del Guía</h1>
+          <h1 className="text-3xl font-bold mb-2">Dashboard</h1>
           <p className="text-muted-foreground">Gestiona tus tours, experiencias y pagos</p>
         </div>
         <Button asChild>
@@ -107,9 +107,9 @@ export default function GuideDashboard() {
         <CardContent>
           <div className="space-y-4">
             {[
-              { tour: "Tour Histórico Centro", date: "18 Enero", time: "10:00 AM", guests: 6 },
-              { tour: "Gastronomía Coyoacán", date: "19 Enero", time: "2:00 PM", guests: 2 },
-              { tour: "Arte y Murales", date: "20 Enero", time: "11:00 AM", guests: 8 },
+              { tour: "Tour por la Zona Hotelera", date: "18 Noviembre", time: "10:00 AM", guests: 6 },
+              { tour: "Tour Cultural", date: "19 Noviembre", time: "2:00 PM", guests: 2 },
+              { tour: "Tour Parque Kabah", date: "20 Noviembre", time: "11:00 AM", guests: 8 },
             ].map((booking, idx) => (
               <div key={idx} className="flex justify-between items-center py-3 border-b last:border-0">
                 <div>
