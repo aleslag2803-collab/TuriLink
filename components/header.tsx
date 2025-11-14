@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { MapPin, User, Menu } from 'lucide-react'
+import { MapPin, User, Menu, ShieldCheck } from 'lucide-react'
 import { useAuth } from "@/lib/auth-context"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
@@ -28,6 +28,8 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+        
+        {/* LOGO */}
         <Link href="/" className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
             <MapPin className="w-5 h-5 text-primary-foreground" />
@@ -35,6 +37,7 @@ export function Header() {
           <span className="text-xl font-bold">TuriLink</span>
         </Link>
 
+        {/* NAV */}
         <nav className="hidden md:flex items-center gap-6">
           <Link
             href="/ia-planner"
@@ -45,7 +48,17 @@ export function Header() {
           </Link>
         </nav>
 
+        {/* RIGHT SECTION */}
         <div className="flex items-center gap-3">
+
+          {/* --- NUEVO BOTÓN DE ADMIN COLLAB --- */}
+          <Link href="/admin/login">
+            <Button variant="ghost" size="icon" className="hidden md:flex" title="Colaborador administrativo">
+              <ShieldCheck className="w-5 h-5" />
+            </Button>
+          </Link>
+
+          {/* AUTH */}
           {isAuthenticated && user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -56,6 +69,7 @@ export function Header() {
                   </Avatar>
                 </Button>
               </DropdownMenuTrigger>
+
               <DropdownMenuContent align="end" className="w-56">
                 <DropdownMenuLabel>
                   <div className="flex flex-col space-y-1">
@@ -63,17 +77,22 @@ export function Header() {
                     <p className="text-xs text-muted-foreground">{user.email}</p>
                   </div>
                 </DropdownMenuLabel>
+
                 <DropdownMenuSeparator />
+
                 <DropdownMenuItem asChild>
                   <Link href={user.tipo === "guia" ? "/guia/dashboard" : "/turista/dashboard"}>Mi Dashboard</Link>
                 </DropdownMenuItem>
+
                 <DropdownMenuItem asChild>
                   <Link href={user.tipo === "guia" ? "/guia/perfil" : "/turista/perfil"}>
                     <User className="w-4 h-4 mr-2" />
                     Mi Perfil
                   </Link>
                 </DropdownMenuItem>
+
                 <DropdownMenuSeparator />
+
                 <DropdownMenuItem onClick={handleLogout} className="text-destructive">
                   <LogOut className="w-4 h-4 mr-2" />
                   Cerrar Sesión
@@ -88,14 +107,18 @@ export function Header() {
                   Iniciar Sesión
                 </Link>
               </Button>
+
               <Button size="sm" asChild className="hidden sm:flex">
                 <Link href="/registro">Ser Guía</Link>
               </Button>
             </>
           )}
+
+          {/* MOBILE MENU */}
           <Button variant="ghost" size="icon" className="md:hidden">
             <Menu className="w-5 h-5" />
           </Button>
+
         </div>
       </div>
     </header>

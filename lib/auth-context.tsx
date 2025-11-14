@@ -2,15 +2,14 @@
 
 import { createContext, useContext, useState, useEffect, type ReactNode } from "react"
 
-type UserType = "turista" | "guia" | null
+type UserType = "turista" | "guia" | "admin" | null
 
 interface User {
   id: string
   email: string
   nombre: string
-  tipo: "turista" | "guia"
+  tipo: "turista" | "guia" | "admin"
   avatar?: string
-  // Datos adicionales según tipo
   telefono?: string
   pais?: string
   ciudad?: string
@@ -31,7 +30,7 @@ interface SignupData {
   email: string
   password: string
   nombre: string
-  tipo: "turista" | "guia"
+  tipo: "turista" | "guia" | "admin"
   telefono?: string
   pais?: string
   ciudad?: string
@@ -58,7 +57,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       id: Math.random().toString(36).substring(7),
       email,
       nombre: email.split("@")[0],
-      tipo: tipo as "turista" | "guia",
+      tipo: tipo as "turista" | "guia" | "admin",
       avatar: "/placeholder-user.jpg",
       calificacion: tipo === "guia" ? 4.8 : undefined,
     }
