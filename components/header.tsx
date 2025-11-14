@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { MapPin, User, Menu } from "lucide-react"
+import { MapPin, User, Menu } from 'lucide-react'
 import { useAuth } from "@/lib/auth-context"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
@@ -13,8 +13,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { LogOut } from "lucide-react"
-import { useRouter } from "next/navigation"
+import { LogOut } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 
 export function Header() {
   const { user, isAuthenticated, logout } = useAuth()
@@ -36,15 +36,6 @@ export function Header() {
         </Link>
 
         <nav className="hidden md:flex items-center gap-6">
-          <Link href="/explorar" className="text-sm font-medium hover:text-primary transition-colors">
-            Explorar
-          </Link>
-          <Link href="/guias" className="text-sm font-medium hover:text-primary transition-colors">
-            Guías
-          </Link>
-          <Link href="/experiencias" className="text-sm font-medium hover:text-primary transition-colors">
-            Experiencias
-          </Link>
           <Link
             href="/ia-planner"
             className="text-sm font-medium hover:text-primary transition-colors flex items-center gap-1"

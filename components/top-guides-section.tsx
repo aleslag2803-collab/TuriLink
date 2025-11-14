@@ -1,52 +1,52 @@
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Star, MapPin, MessageCircle } from "lucide-react"
+import { Star, MapPin, MessageCircle } from 'lucide-react'
 import Link from "next/link"
 
 const topGuides = [
   {
     id: 1,
-    name: "Carlos Mendoza",
-    location: "Ciudad de México, México",
+    name: "María Elena Ceh",
+    location: "Tulum, Quintana Roo",
     rating: 4.9,
     reviews: 234,
     tours: 12,
-    specialties: ["Historia", "Gastronomía", "Arte"],
-    image: "/professional-mexican-tour-guide-smiling.jpg",
+    specialties: ["Historia Maya", "Cenotes", "Ecología"],
+    image: "/mexican-female-tour-guide-mayan-ruins.jpg",
     verified: true,
   },
   {
     id: 2,
-    name: "Sofia Ramirez",
-    location: "Barcelona, España",
+    name: "José Luis Cauich",
+    location: "Playa del Carmen, Quintana Roo",
     rating: 5.0,
     reviews: 189,
     tours: 8,
-    specialties: ["Arquitectura", "Cultura", "Fotografía"],
-    image: "/professional-spanish-female-tour-guide.jpg",
+    specialties: ["Snorkel", "Cultura Maya", "Gastronomía"],
+    image: "/mexican-male-tour-guide-caribbean-beach.jpg",
     verified: true,
   },
   {
     id: 3,
-    name: "Miguel Torres",
-    location: "Cusco, Perú",
+    name: "Gabriela Poot",
+    location: "Bacalar, Quintana Roo",
     rating: 4.8,
     reviews: 312,
     tours: 15,
-    specialties: ["Aventura", "Historia Inca", "Naturaleza"],
-    image: "/professional-peruvian-tour-guide-mountains.jpg",
+    specialties: ["Laguna", "Naturaleza", "Kayak"],
+    image: "/mexican-female-guide-lagoon-bacalar.jpg",
     verified: true,
   },
   {
     id: 4,
-    name: "Ana Martínez",
-    location: "Buenos Aires, Argentina",
+    name: "Roberto May",
+    location: "Felipe Carrillo Puerto, Quintana Roo",
     rating: 4.9,
     reviews: 167,
     tours: 10,
-    specialties: ["Tango", "Gastronomía", "Vida Nocturna"],
-    image: "/professional-argentinian-female-tour-guide.jpg",
+    specialties: ["Comunidades Mayas", "Artesanías", "Selva"],
+    image: "/mexican-indigenous-male-guide-jungle.jpg",
     verified: true,
   },
 ]
