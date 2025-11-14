@@ -4,10 +4,11 @@ import { useState, useEffect } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { MapPin, Calendar, Star, Heart, Clock, Users, Search, Sparkles } from "lucide-react"
+import { MapPin, Calendar, Star, Heart, Clock, Users, Search, Sparkles } from 'lucide-react'
 import Link from "next/link"
 import { Input } from "@/components/ui/input"
 import Image from "next/image"
+import { useRouter } from 'next/navigation'
 
 export default function TouristDashboard() {
   // extraer los tours a una constante para reutilizar y tipar
@@ -97,6 +98,7 @@ export default function TouristDashboard() {
   }, [])
 
   const [selectedTour, setSelectedTour] = useState<typeof featuredTours[0] | null>(null)
+  const router = useRouter()
 
   return (
     <div className="space-y-8">
@@ -199,7 +201,7 @@ export default function TouristDashboard() {
                <Card key={idx} className="overflow-hidden hover:shadow-lg transition-shadow">
                  <div className="relative h-48 bg-muted overflow-hidden">
                    {/* imagen del tour */}
-                   <Image src={tour.image} alt={tour.title} fill className="object-cover" />
+                   <Image src={tour.image || "/placeholder.svg"} alt={tour.title} fill className="object-cover" />
                    {/* overlay para badge */}
                    <div className="absolute inset-0 bg-black/10"></div>
                    <Badge className="absolute top-3 right-3 bg-background/90 backdrop-blur z-10">{tour.category}</Badge>
@@ -234,23 +236,13 @@ export default function TouristDashboard() {
                      <Button
                        className="flex-1"
                        onClick={() => {
-                         // agregar la reserva en memoria y persistir en localStorage
-                         setBookings((prev) => {
-                           const updated = [tour, ...prev]
-                           try {
-                             localStorage.setItem("turilink_bookings", JSON.stringify(updated))
-                           } catch (e) {
-                             console.error("Error guardando reserva en localStorage", e)
-                           }
-                           return updated
-                         })
-                         setLastBookedTitle(tour.title)
+                         const tourData = encodeURIComponent(JSON.stringify(tour))
+                         router.push(`/turista/reservar?tour=${tourData}`)
                        }}
                      >
                        Reservar Ahora
                      </Button>
 
-                     {/* Botón para abrir más información */}
                      <Button variant="outline" onClick={() => setSelectedTour(tour)} className="flex-1">
                        Más info
                      </Button>

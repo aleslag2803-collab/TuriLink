@@ -3,14 +3,14 @@
 import type React from "react"
 
 import { useAuth } from "@/lib/auth-context"
-import { useRouter } from "next/navigation"
+import { useRouter } from 'next/navigation'
 import { useEffect } from "react"
-import { LayoutDashboard, Calendar, CreditCard, User, LogOut, Menu, Sparkles } from "lucide-react"
+import { LayoutDashboard, Calendar, CreditCard, User, LogOut, Menu, Sparkles, BookmarkCheck } from 'lucide-react'
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { usePathname } from 'next/navigation'
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { MapPin } from "lucide-react"
+import { MapPin } from 'lucide-react'
 import {
   Sidebar,
   SidebarContent,
@@ -25,6 +25,7 @@ import {
 
 const navItems = [
   { href: "/turista/dashboard", label: "Explorar", icon: LayoutDashboard },
+  { href: "/turista/reservar", label: "Reservar", icon: BookmarkCheck },
   { href: "/turista/reservas", label: "Mis Reservas", icon: Calendar },
   { href: "/turista/ia-planner", label: "IA Planner", icon: Sparkles },
   { href: "/turista/pagos", label: "Pagos", icon: CreditCard },
