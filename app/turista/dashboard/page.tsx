@@ -12,9 +12,11 @@ import { useRouter } from 'next/navigation'
 
 export default function TouristDashboard() {
   // extraer los tours a una constante para reutilizar y tipar
+  // featuredTours: añadir `guideId` (ids 1..4)
   const featuredTours = [
-    { 
+    {
       title: "Sabores y Mercado 28 en Downtown Cancún",
+      guideId: "1",
       image: "/El-Huerto-Del-Eden.jpg",
       guide: "Mariana López",
       price: "$420",
@@ -23,8 +25,9 @@ export default function TouristDashboard() {
       duration: "3 horas",
       category: "Cultura y Gastronomía",
     },
-    { 
+    {
       title: "Noche en Parque de las Palapas y Avenida Tulum",
+      guideId: "2",
       image: "/El-Oasis-Mariscos-Cancun.jpg",
       guide: "Jorge Hernández",
       price: "$380",
@@ -33,8 +36,9 @@ export default function TouristDashboard() {
       duration: "3.5 horas",
       category: "Vida local",
     },
-    { 
+    {
       title: "Museo Maya de Cancún y Zona Arqueológica San Miguelito",
+      guideId: "3",
       image: "/Freds-Restaurant.jpg",
       guide: "Ana Martínez",
       price: "$520",
@@ -43,8 +47,9 @@ export default function TouristDashboard() {
       duration: "4 horas",
       category: "Historia",
     },
-    { 
+    {
       title: "Atardecer en Malecón Tajamar y Mirador de la Laguna",
+      guideId: "4",
       image: "/La-Coyota-Cancun.jpg",
       guide: "Ricardo González",
       price: "$390",
@@ -53,9 +58,10 @@ export default function TouristDashboard() {
       duration: "2.5 horas",
       category: "Paisajes",
     },
-    { 
+    {
       title: "Playas y Faro de Punta Cancún",
-      image: "/playas-faro-punta-cancun.jpg",
+      guideId: "1",
+      image: "/bacalar-lagoon-seven-colors-mexico.jpg",
       guide: "Laura Pérez",
       price: "$450",
       rating: 4.9,
@@ -270,39 +276,32 @@ export default function TouristDashboard() {
         </CardHeader>
         <CardContent>
           {bookings.length === 0 ? (
-            // contenido estático original cuando no hay reservas
-            <div className="flex flex-col md:flex-row justify-between gap-4">
-              <div className="space-y-3 flex-1">
-                <div>
-                  <div className="flex items-center gap-2 mb-1">
-                    <h3 className="text-xl font-bold">Tour Histórico Centro CDMX</h3>
-                    <Badge className="bg-green-eco text-primary-foreground">Confirmado</Badge>
+            // Mostrar los primeros 3 tours de featuredTours cuando no hay reservas
+            <div className="grid md:grid-cols-3 gap-4">
+              {featuredTours.slice(0, 3).map((t, i) => (
+                <div key={i} className="p-4 rounded-lg bg-muted/50 border">
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <div className="flex items-center gap-2 mb-1">
+                        <h4 className="text-lg font-semibold">{t.title}</h4>
+                      </div>
+                      <div className="text-sm text-muted-foreground">Guía: {t.guide}</div>
+                      <div className="flex items-center gap-3 text-sm mt-2">
+                        <div className="flex items-center gap-2">
+                          <Clock className="w-4 h-4 text-muted-foreground" />
+                          {t.duration}
+                        </div>
+                        <div className="text-sm text-primary font-medium ml-2">{t.price}</div>
+                      </div>
+                    </div>
+                    <div className="ml-4">
+                      <Button size="sm" asChild>
+                        <Link href={`/turista/reservar?tour=${encodeURIComponent(JSON.stringify(t))}`}>Reservar</Link>
+                      </Button>
+                    </div>
                   </div>
-                  <p className="text-sm text-muted-foreground">Guía: Carlos Mendoza</p>
                 </div>
-                <div className="flex flex-wrap gap-4 text-sm">
-                  <div className="flex items-center gap-2">
-                    <Calendar className="w-4 h-4 text-muted-foreground" />
-                    25 Enero 2025
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Clock className="w-4 h-4 text-muted-foreground" />
-                    10:00 AM
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Users className="w-4 h-4 text-muted-foreground" />2 personas
-                  </div>
-                </div>
-              </div>
-              <div className="flex flex-col justify-between items-end gap-3">
-                <div className="text-right">
-                  <div className="text-2xl font-bold text-primary">$700</div>
-                  <div className="text-xs text-muted-foreground">MXN Total</div>
-                </div>
-                <Button asChild>
-                  <Link href="/turista/reservas">Ver Detalles</Link>
-                </Button>
-              </div>
+              ))}
             </div>
           ) : (
             <div className="space-y-4">
@@ -389,7 +388,13 @@ export default function TouristDashboard() {
 
               {/* Información adicional relevante (puedes extender) */}
               <div className="mt-6 space-y-3 text-sm">
-                <p><strong>Guía:</strong> {selectedTour.guide}</p>
+                <div className="flex items-center justify-between">
+                  <div><strong>Guía:</strong> {selectedTour.guide}</div>
+                  {/* Botón que redirige a /guias/:id usando el guideId asignado */}
+                  <Button size="sm" variant="outline" asChild>
+                    <Link href={`/guias/${selectedTour.guideId}`}>Ver info del guía</Link>
+                  </Button>
+                </div>
                 <p><strong>Incluye:</strong> Visita guiada, degustación, transporte local (según tour)</p>
                 <p><strong>Recomendaciones:</strong> Llevar calzado cómodo, agua y protector solar.</p>
                 <p><strong>Política de cancelación:</strong> Reembolso completo si cancelas con 48 horas de anticipación.</p>
