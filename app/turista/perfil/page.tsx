@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -26,8 +26,32 @@ export default function TouristProfile() {
     bio: "",
   })
 
+  // preview de la imagen seleccionada (si existe, usar avatar del usuario como inicial)
+  const [avatarPreview, setAvatarPreview] = useState<string | undefined>(user?.avatar || undefined)
+  const fileInputRef = useRef<HTMLInputElement | null>(null)
+
+  useEffect(() => {
+    // limpiar blob URL anterior cuando cambie preview
+    return () => {
+      if (avatarPreview && avatarPreview.startsWith("blob:")) {
+        URL.revokeObjectURL(avatarPreview)
+      }
+    }
+  }, [avatarPreview])
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
+  }
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    // limpiar previa si era blob
+    setAvatarPreview((prev) => {
+      if (prev && prev.startsWith("blob:")) URL.revokeObjectURL(prev)
+      return URL.createObjectURL(file)
+    })
+    // aquí podrías guardar el file para subirlo al backend más tarde si lo deseas
   }
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -52,9 +76,18 @@ export default function TouristProfile() {
           </CardHeader>
           <CardContent className="flex flex-col items-center space-y-4">
             <Avatar className="w-32 h-32">
-              <AvatarImage src={user?.avatar || "/placeholder.svg"} />
-              <AvatarFallback className="text-4xl">{user?.nombre.charAt(0).toUpperCase()}</AvatarFallback>
+              <AvatarImage src={avatarPreview || "/placeholder.svg"} />
+              <AvatarFallback className="text-4xl">{(user?.nombre || "U").charAt(0).toUpperCase()}</AvatarFallback>
             </Avatar>
+            {/* input file oculto */}
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={handleFileChange}
+            />
+
             <div className="text-center">
               <Badge className="bg-accent text-accent-foreground gap-1">
                 <Award className="w-3 h-3" />
@@ -62,7 +95,11 @@ export default function TouristProfile() {
               </Badge>
               <p className="text-sm text-muted-foreground mt-2">850 puntos viajero</p>
             </div>
-            <Button variant="outline" className="w-full bg-transparent">
+            <Button
+              variant="outline"
+              className="w-full bg-transparent"
+              onClick={() => fileInputRef.current?.click()}
+            >
               <Camera className="w-4 h-4 mr-2" />
               Cambiar Foto
             </Button>
