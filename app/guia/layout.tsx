@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation"
 import { useEffect } from "react"
 import { LayoutDashboard, MapPin, Sparkles, MessageSquare, CreditCard, User, LogOut, Menu } from "lucide-react"
 import Link from "next/link"
+
 import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
