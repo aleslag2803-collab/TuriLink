@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { MapPin, Calendar, Star, Heart, Clock, Users, Search, Sparkles } from 'lucide-react'
+import { MapPin, Calendar, Star, Heart, Clock, Users, Search, Sparkles, Wand2 } from 'lucide-react'
 import Link from "next/link"
 import { Input } from "@/components/ui/input"
 import Image from "next/image"
@@ -108,12 +108,20 @@ export default function TouristDashboard() {
           <h1 className="text-3xl font-bold mb-2">Explora México</h1>
           <p className="text-muted-foreground">Descubre experiencias auténticas con guías locales</p>
         </div>
-        <Button asChild className="gap-2">
-          <Link href="/turista/ia-planner">
-            <Sparkles className="w-4 h-4" />
-            Planificar con IA
-          </Link>
-        </Button>
+        <div className="flex gap-2">
+          <Button asChild variant="outline" className="gap-2">
+            <Link href="/turista/tour-personalizado">
+              <Wand2 className="w-4 h-4" />
+              Tour Personalizado
+            </Link>
+          </Button>
+          <Button asChild className="gap-2">
+            <Link href="/turista/ia-planner">
+              <Sparkles className="w-4 h-4" />
+              Planificar con IA
+            </Link>
+          </Button>
+        </div>
       </div>
 
       {/* Quick Stats */}

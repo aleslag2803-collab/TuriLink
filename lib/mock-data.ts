@@ -1,318 +1,176 @@
-// Datos simulados para la aplicación
-
-export interface Guide {
-  id: string
-  name: string
-  photo: string
-  specialty: string
-  description: string
-  languages: string[]
-  transportType: "propio" | "publico"
-  phone: string
-  email: string
-  touristsGuided: number
-  rating: number
-  reviews: Review[]
-  verified: boolean
-  ecoFriendly: boolean
-  documents: {
-    id: string
-    certificate: string
-  }
-}
-
-export interface Tourist {
-  id: string
-  name: string
-  photo: string
-  email: string
-  phone: string
-  language: string
-  preferences: string[]
-  guidesHired: string[]
-  subscriptionActive: boolean
-}
-
-export interface Local {
-  id: string
-  name: string
-  description: string
-  type: "restaurant" | "natural" | "cultural" | "adventure"
-  location: {
-    lat: number
-    lon: number
-    address: string
-  }
-  ecoFriendly: boolean
-  rating: number
-  reviews: Review[]
-  images: string[]
-}
-
 export interface Review {
   id: string
-  userId: string
-  userName: string
-  userPhoto: string
+  author: string
   rating: number
   comment: string
   date: string
 }
 
-// Mock Guides
-export const mockGuides: Guide[] = [
-  {
-    id: "1",
-    name: "Carlos Méndez",
-    photo: "/guia-turistico-profesional.jpg",
-    specialty: "Cultura & Historia",
-    description:
-      "Historiador apasionado con 10 años de experiencia guiando turistas por sitios arqueológicos y museos. Especializado en historia precolombina y colonial.",
-    languages: ["Español", "Inglés", "Francés"],
-    transportType: "propio",
-    phone: "+52 555 123 4567",
-    email: "carlos.mendez@turilink.com",
-    touristsGuided: 234,
-    rating: 4.9,
-    reviews: [],
-    verified: true,
-    ecoFriendly: true,
-    documents: {
-      id: "INE123456",
-      certificate: "CERT-TOUR-2023-001",
-    },
-  },
-  {
-    id: "2",
-    name: "María González",
-    photo: "/guia-turistica-aventura.jpg",
-    specialty: "Aventura & Naturaleza",
-    description:
-      "Guía certificada en ecoturismo y actividades al aire libre. Experta en senderismo, rappel y observación de fauna silvestre.",
-    languages: ["Español", "Inglés"],
-    transportType: "propio",
-    phone: "+52 555 234 5678",
-    email: "maria.gonzalez@turilink.com",
-    touristsGuided: 156,
-    rating: 5.0,
-    reviews: [],
-    verified: true,
-    ecoFriendly: true,
-    documents: {
-      id: "INE234567",
-      certificate: "CERT-ECO-2023-002",
-    },
-  },
-  {
-    id: "3",
-    name: "José Ramírez",
-    photo: "/chef-guia-gastronomico.jpg",
-    specialty: "Gastronomía Local",
-    description:
-      "Chef profesional y guía gastronómico. Te llevaré a descubrir los mejores sabores locales, mercados tradicionales y restaurantes escondidos.",
-    languages: ["Español", "Inglés", "Italiano"],
-    transportType: "publico",
-    phone: "+52 555 345 6789",
-    email: "jose.ramirez@turilink.com",
-    touristsGuided: 189,
-    rating: 4.8,
-    reviews: [],
-    verified: true,
-    ecoFriendly: true,
-    documents: {
-      id: "INE345678",
-      certificate: "CERT-GAST-2023-003",
-    },
-  },
-  {
-    id: "4",
-    name: "Lucía Herrera",
-    photo: "/guia-ecologica.jpg",
-    specialty: "Ecoturismo & Fauna",
-    description:
-      "Bióloga y guía ambiental con enfoque en conservación. Organiza recorridos por reservas naturales y programas de educación ambiental.",
-    languages: ["Español", "Inglés", "Alemán"],
-    transportType: "propio",
-    phone: "+52 555 456 7890",
-    email: "lucia.herrera@turilink.com",
-    touristsGuided: 210,
-    rating: 4.9,
-    reviews: [],
-    verified: true,
-    ecoFriendly: true,
-    documents: {
-      id: "INE456789",
-      certificate: "CERT-ECO-2023-004",
-    },
-  },
-  {
-    id: "5",
-    name: "Fernando López",
-    photo: "/guia-arqueologico.jpg",
-    specialty: "Sitios Arqueológicos",
-    description:
-      "Arqueólogo con más de 12 años guiando visitas a zonas mayas y aztecas. Conocedor de mitología y costumbres ancestrales.",
-    languages: ["Español", "Inglés"],
-    transportType: "publico",
-    phone: "+52 555 567 8901",
-    email: "fernando.lopez@turilink.com",
-    touristsGuided: 298,
-    rating: 4.7,
-    reviews: [],
-    verified: true,
-    ecoFriendly: false,
-    documents: {
-      id: "INE567890",
-      certificate: "CERT-ARC-2023-005",
-    },
-  },
-  {
-    id: "6",
-    name: "Ana Torres",
-    photo: "/guia-fotografica.jpg",
-    specialty: "Fotografía & Naturaleza",
-    description:
-      "Apasionada por la fotografía de paisajes y fauna. Ofrece recorridos personalizados para capturar la belleza natural del país.",
-    languages: ["Español", "Inglés", "Portugués"],
-    transportType: "propio",
-    phone: "+52 555 678 9012",
-    email: "ana.torres@turilink.com",
-    touristsGuided: 134,
-    rating: 4.8,
-    reviews: [],
-    verified: true,
-    ecoFriendly: true,
-    documents: {
-      id: "INE678901",
-      certificate: "CERT-FOTO-2023-006",
-    },
-  },
-  {
-    id: "7",
-    name: "Miguel Castillo",
-    photo: "/guia-extremo.jpg",
-    specialty: "Deportes Extremos",
-    description:
-      "Instructor certificado en rafting, escalada y ciclismo de montaña. Fomenta la seguridad y la conexión con la naturaleza.",
-    languages: ["Español", "Inglés"],
-    transportType: "propio",
-    phone: "+52 555 789 0123",
-    email: "miguel.castillo@turilink.com",
-    touristsGuided: 176,
-    rating: 4.9,
-    reviews: [],
-    verified: true,
-    ecoFriendly: true,
-    documents: {
-      id: "INE789012",
-      certificate: "CERT-ADV-2023-007",
-    },
-  },
-  {
-    id: "8",
-    name: "Verónica Díaz",
-    photo: "/guia-cultural.jpg",
-    specialty: "Arte & Cultura Moderna",
-    description:
-      "Curadora de arte y guía de galerías urbanas. Te mostrará los espacios más innovadores de arte contemporáneo y muralismo.",
-    languages: ["Español", "Francés", "Inglés"],
-    transportType: "publico",
-    phone: "+52 555 890 1234",
-    email: "veronica.diaz@turilink.com",
-    touristsGuided: 145,
-    rating: 4.6,
-    reviews: [],
-    verified: true,
-    ecoFriendly: false,
-    documents: {
-      id: "INE890123",
-      certificate: "CERT-ART-2023-008",
-    },
-  },
-  {
-    id: "9",
-    name: "Santiago Rivera",
-    photo: "/guia-aventura-acuatica.jpg",
-    specialty: "Aventura Acuática",
-    description:
-      "Guía especializado en kayak, buceo y esnórquel. Con amplia experiencia en zonas costeras y arrecifes del Caribe mexicano.",
-    languages: ["Español", "Inglés"],
-    transportType: "propio",
-    phone: "+52 555 901 2345",
-    email: "santiago.rivera@turilink.com",
-    touristsGuided: 203,
-    rating: 5.0,
-    reviews: [],
-    verified: true,
-    ecoFriendly: true,
-    documents: {
-      id: "INE901234",
-      certificate: "CERT-AQUA-2023-009",
-    },
-  },
-]
+export interface Local {
+  id: string
+  name: string
+  category: string
+  address: string
+  description: string
+  icon?: string
+  likes: number
+  rating: number
+  reviews: Review[]
+  image?: string
+  guideId: string
+}
 
-// Mock Locals
 export const mockLocals: Local[] = [
   {
     id: "1",
-    name: "Restaurante El Sabor Ancestral",
-    description:
-      "Restaurante familiar que ofrece cocina tradicional con ingredientes orgánicos de productores locales. Ambiente acogedor y auténtico.",
-    type: "restaurant",
-    location: {
-      lat: 19.4326,
-      lon: -99.1332,
-      address: "Calle Hidalgo 123, Centro Histórico",
-    },
-    ecoFriendly: true,
-    rating: 4.7,
-    reviews: [],
-    images: ["/traditional-mexican-restaurant.png"],
+    name: "Café de Tacuba",
+    category: "Restaurante",
+    address: "Tacuba 28, Centro Histórico",
+    description: "Comida tradicional mexicana en un ambiente histórico",
+    icon: "Utensils",
+    likes: 45,
+    rating: 4.8,
+    reviews: [
+      {
+        id: "r1",
+        author: "María López",
+        rating: 5,
+        comment: "Excelente comida tradicional y ambiente único",
+        date: "2024-01-15",
+      },
+    ],
+    image: "/traditional-mexican-restaurant.jpg",
+    guideId: "1", // Updated to match guide ID
   },
   {
     id: "2",
-    name: "Cascadas de Agua Azul",
-    description:
-      "Impresionantes cascadas de color turquesa rodeadas de selva tropical. Ideal para natación y fotografía de naturaleza.",
-    type: "natural",
-    location: {
-      lat: 17.25,
-      lon: -92.1167,
-      address: "Parque Natural, Chiapas",
-    },
-    ecoFriendly: true,
+    name: "Museo Frida Kahlo",
+    category: "Museo",
+    address: "Londres 247, Del Carmen",
+    description: "La Casa Azul, hogar de Frida Kahlo",
+    icon: "Home",
+    likes: 89,
     rating: 4.9,
-    reviews: [],
-    images: ["/cascadas-agua-azul-naturaleza.jpg"],
+    reviews: [
+      {
+        id: "r2",
+        author: "Carlos Ramírez",
+        rating: 5,
+        comment: "Una experiencia cultural inolvidable",
+        date: "2024-01-20",
+      },
+    ],
+    image: "/frida-kahlo-museum-blue-house.jpg",
+    guideId: "1",
   },
   {
     id: "3",
-    name: "Museo de Arte Popular",
-    description:
-      "Exhibición permanente de artesanías mexicanas y arte popular de todas las regiones del país. Talleres interactivos disponibles.",
-    type: "cultural",
-    location: {
-      lat: 19.418,
-      lon: -99.155,
-      address: "Revillagigedo 11, Centro",
-    },
-    ecoFriendly: false,
+    name: "Mercado de San Juan",
+    category: "Mercado",
+    address: "Ernesto Pugibet 21, Centro",
+    description: "Ingredientes exóticos y comida gourmet",
+    icon: "ShoppingBag",
+    likes: 67,
     rating: 4.6,
     reviews: [],
-    images: ["/museo-arte-popular-mexicano.jpg"],
+    image: "/mexican-market-fresh-produce.jpg",
+    guideId: "2",
+  },
+  {
+    id: "4",
+    name: "Café Avellaneda",
+    category: "Cafetería",
+    address: "Álvaro Obregón 88, Roma Norte",
+    description: "Café de especialidad y ambiente acogedor",
+    icon: "Coffee",
+    likes: 34,
+    rating: 4.7,
+    reviews: [
+      {
+        id: "r3",
+        author: "Ana Torres",
+        rating: 5,
+        comment: "El mejor café de la ciudad",
+        date: "2024-02-01",
+      },
+    ],
+    image: "/cozy-coffee-shop-interior.jpg",
+    guideId: "2",
+  },
+  {
+    id: "5",
+    name: "El Oasis Mariscos",
+    category: "Restaurante",
+    address: "Av. Bonampak, Cancún",
+    description: "Mariscos frescos en un ambiente relajado",
+    icon: "Utensils",
+    likes: 78,
+    rating: 4.8,
+    reviews: [
+      {
+        id: "r4",
+        author: "Pedro Sánchez",
+        rating: 5,
+        comment: "Los mejores mariscos de Cancún",
+        date: "2024-02-05",
+      },
+    ],
+    image: "/El-Oasis-Mariscos-Cancun.jpg",
+    guideId: "3",
+  },
+  {
+    id: "6",
+    name: "El Huerto Del Eden",
+    category: "Restaurante",
+    address: "Playa del Carmen",
+    description: "Restaurante con ambiente natural y cocina fresca",
+    icon: "Utensils",
+    likes: 92,
+    rating: 4.9,
+    reviews: [],
+    image: "/El-Huerto-Del-Eden.jpg",
+    guideId: "3",
+  },
+  {
+    id: "7",
+    name: "Fred's Restaurant",
+    category: "Restaurante",
+    address: "Playa del Carmen",
+    description: "Cocina internacional en un ambiente elegante",
+    icon: "Utensils",
+    likes: 65,
+    rating: 4.7,
+    reviews: [
+      {
+        id: "r5",
+        author: "Laura Martínez",
+        rating: 5,
+        comment: "Excelente servicio y comida deliciosa",
+        date: "2024-02-10",
+      },
+    ],
+    image: "/Freds-Restaurant.jpg",
+    guideId: "4",
+  },
+  {
+    id: "8",
+    name: "Restaurante Cetli",
+    category: "Restaurante",
+    address: "Av. Cobá, Tulum",
+    description: "Cocina mexicana contemporánea con ingredientes locales y vista a la selva",
+    icon: "Utensils",
+    likes: 127,
+    rating: 4.9,
+    reviews: [
+      {
+        id: "r6",
+        author: "Roberto Díaz",
+        rating: 5,
+        comment: "Una experiencia culinaria excepcional en Tulum",
+        date: "2024-02-15",
+      },
+    ],
+    image: "/chef-guia-gastronomico.jpg",
+    guideId: "1",
   },
 ]
-
-// Recommendation Algorithm (simplified)
-export function getRecommendations(preferences: string[], language: string): Guide[] {
-  return mockGuides
-    .filter((guide) => {
-      const hasMatchingLanguage = guide.languages.includes(language)
-      const hasMatchingPreference = preferences.some((pref) =>
-        guide.specialty.toLowerCase().includes(pref.toLowerCase()),
-      )
-      return hasMatchingLanguage || hasMatchingPreference
-    })
-    .sort((a, b) => b.rating - a.rating)
-}
